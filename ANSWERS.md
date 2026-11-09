@@ -145,6 +145,9 @@ Add these to the end of the file's address in the browser (after `index.html`), 
 | `#end=weathering` | The other good ending (the sea stays) |
 | `#end=drowned` | The ending you get if Tokyo floods |
 | `#ch=3` | Jump straight to Chapter III (use 1 to 4) |
+| `#guide=dew` | The beginner guide (`dew`, `play` or `words` tab) |
+| `#welcome` | The four first-time welcome cards again |
+| `#q=p1q4` | One question on its own (try a wrong answer to see the hint and second try) |
 | `#sky=12` | Freeze the sky-fall at 12 seconds (try 4, 12, 17, 22, 31) |
 | `#cam=p2:q5` | View one question's camera spot (`p1` to `p4`, `card`, `lesson`, `q1`…) |
 | `#2d` / `#3d` | Force the classic 2D scene or the 3D Tokyo for one visit (the **Graphics** switch on the title screen does this permanently) |

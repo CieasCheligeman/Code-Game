@@ -366,6 +366,105 @@ html.shot *, html.shot *::before, html.shot *::after { animation-duration: 0s !i
 .code.wrap .ln { min-width: 0; white-space: normal; }
 .code.wrap .ln > span:last-child { white-space: pre-wrap; overflow-wrap: anywhere; flex: 1; min-width: 0; padding-left: 2.2em; text-indent: -2.2em; }
 
+/* beginner help: top bar on the title, guide overlay, first-run welcome */
+#help-top { position: fixed; top: 16px; left: 16px; z-index: 31; display: none; flex-direction: column; align-items: flex-start; gap: 8px; max-width: calc(100% - 32px); }
+body.at-title #help-top { display: flex; animation: fadeIn 1.2s .8s both; }
+.help-pill { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; background: var(--glass-2); border: 1px solid var(--edge-2); color: #fff; font-size: 13px; cursor: pointer; white-space: nowrap; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: background .3s, border-color .3s; }
+.help-pill:hover { background: rgba(255, 255, 255, .14); border-color: rgba(255, 255, 255, .5); }
+.help-pill svg { width: 16px; height: 16px; flex: none; }
+.help-pill.dew { border-color: rgba(148, 211, 255, .55); box-shadow: 0 0 24px rgba(148, 211, 255, .18); }
+.help-pill.glow { animation: helpGlow 2.4s 3s 3; }
+@keyframes helpGlow { 50% { box-shadow: 0 0 36px rgba(148, 211, 255, .6); border-color: #cfe9ff; } }
+#ov-guide .ov-panel { width: min(860px, calc(100% - 32px)); }
+.guide-body { flex: 1; min-height: 0; min-width: 0; overflow: auto; overflow-wrap: anywhere; padding: 24px 28px 34px; }
+.guide-body h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 3vw, 38px); line-height: 1.1; margin: 4px 0 12px; }
+.guide-body h3 { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--sun); margin: 28px 0 10px; font-weight: 600; }
+.guide-body p, .guide-body li { font-size: 15.5px; line-height: 1.7; color: var(--ink-2); }
+.guide-body p { margin: 0 0 12px; }
+.guide-body b { color: #fff; }
+.guide-body ul, .guide-body ol { margin: 0 0 12px; padding-left: 22px; }
+.guide-body li { margin-bottom: 6px; }
+.guide-body li::marker { color: var(--sky); }
+.big-def { font-family: var(--serif); font-size: clamp(20px, 2.3vw, 26px); line-height: 1.4; color: #fff; padding: 16px 20px; border-radius: 14px; background: rgba(148, 211, 255, .08); border: 1px solid rgba(148, 211, 255, .25); margin: 0 0 16px; }
+.g-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 8px; }
+.g-card { padding: 14px 16px; border-radius: 14px; background: rgba(255, 255, 255, .04); border: 1px solid var(--edge); font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+.g-card b { display: block; margin-bottom: 4px; color: #fff; font-size: 15px; }
+.g-table { width: 100%; border-collapse: collapse; font-size: 14.5px; margin-bottom: 8px; }
+.g-table td { padding: 10px 12px; border-bottom: 1px solid var(--edge); color: var(--ink-2); vertical-align: top; }
+.g-table td:first-child { white-space: nowrap; color: #fff; font-variant-numeric: tabular-nums; }
+.g-table .sw { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 8px; }
+.calc { padding: 16px 18px; border-radius: 14px; background: rgba(255, 255, 255, .04); border: 1px solid var(--edge); }
+.calc label { display: grid; grid-template-columns: 150px minmax(0, 1fr) 92px; align-items: center; gap: 12px; font-size: 14px; color: var(--ink-2); margin-bottom: 10px; }
+.calc input[type=range] { width: 100%; accent-color: #94d3ff; }
+.calc output { text-align: right; color: #fff; font-variant-numeric: tabular-nums; }
+.calc-out { margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--edge); font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+.calc-out .dp { font-family: var(--serif); font-size: 30px; color: #fff; }
+.g-steps { list-style: none; padding: 0 !important; counter-reset: s; }
+.g-steps li { counter-increment: s; position: relative; padding: 12px 14px 12px 52px; border-radius: 14px; background: rgba(255, 255, 255, .04); border: 1px solid var(--edge); margin-bottom: 8px; }
+.g-steps li::before { content: counter(s); position: absolute; left: 14px; top: 12px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 213, 142, .18); color: var(--sun); font-size: 13px; font-weight: 600; }
+.g-icon { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--edge-2); vertical-align: middle; margin: 0 2px; }
+.g-icon svg { width: 13px; height: 13px; }
+.g-small { font-size: 13px !important; color: var(--ink-3) !important; }
+.g-small a { color: var(--sky); }
+#ov-start { z-index: 55; }
+
+/* code explorer + try again */
+.code.explore .ln:not(.gap) { cursor: help; transition: background .2s; }
+.code.explore .ln:not(.gap):hover { background: rgba(148, 211, 255, .08); }
+.code .ln.xsel { background: linear-gradient(90deg, rgba(148, 211, 255, .24), rgba(148, 211, 255, .06)); }
+.code .ln.xsel::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--sky); box-shadow: 0 0 10px var(--sky); }
+.code .ln.blk { box-shadow: inset 3px 0 0 rgba(148, 211, 255, .35); background-color: rgba(148, 211, 255, .035); }
+.code .ln.tried { background: linear-gradient(90deg, rgba(255, 154, 154, .14), transparent); opacity: .7; }
+.code .ln.tried .n { text-decoration: line-through; }
+.xp { margin: 16px 0 4px; padding: 14px 16px; border-radius: 14px; background: rgba(148, 211, 255, .05); border: 1px dashed rgba(148, 211, 255, .3); }
+.xp.on { border-style: solid; background: rgba(148, 211, 255, .08); animation: panelIn .5s cubic-bezier(.2, .8, .2, 1); }
+.xp-h { font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--sky); font-weight: 600; margin-bottom: 8px; }
+.xp-p { margin: 0 0 8px; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); }
+.xp-p b, .xp-ul b { color: #fff; }
+.xp-code { margin-bottom: 10px; overflow-x: auto; }
+.xp-code code { white-space: pre; display: inline-block; font-size: 12.5px; }
+.xp-k { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-3); margin: 12px 0 6px; }
+.xp-ul { margin: 0; padding-left: 18px; }
+.xp-ul li { font-size: 13.5px; line-height: 1.55; color: var(--ink-2); margin-bottom: 4px; }
+.xp-ul li::marker { color: var(--sky); }
+.xp-tree { list-style: none; margin: 0; padding: 0; }
+.xp-tree li { display: flex; gap: 8px; align-items: baseline; font-size: 13px; margin-bottom: 4px; min-width: 0; }
+.xp-tree li + li { padding-left: 14px; } .xp-tree li + li + li { padding-left: 28px; } .xp-tree li + li + li + li { padding-left: 42px; }
+.xp-tree code { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.xp-n { flex: none; font-size: 11px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.xp-mode { margin: 0 0 10px; flex-wrap: wrap; }
+.try { margin-top: 16px; padding: 14px 16px; border-radius: 14px; border: 1px solid rgba(255, 154, 154, .4); background: rgba(255, 154, 154, .06); animation: panelIn .6s cubic-bezier(.2, .8, .2, 1); }
+.try-h { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-style: italic; font-size: 21px; color: #fff; margin-bottom: 8px; }
+.try-h svg { width: 22px; height: 22px; flex: none; }
+.try-b { font-size: 14.5px; line-height: 1.6; color: #ffe8e8; }
+.try-b b { color: #fff; }
+.try-tip { margin-top: 8px; font-size: 13px; color: var(--ink-3); }
+#ov-start.on { display: grid; place-items: center; padding: 16px; }
+.start-card { width: min(560px, 100%); max-height: calc(100% - 32px); overflow: auto; padding: 30px 30px 22px; border-radius: 22px; background: var(--glass-2); border: 1px solid var(--edge-2); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); box-shadow: 0 30px 90px rgba(0, 0, 0, .5); }
+.start-card .eyebrow { margin-bottom: 4px; }
+.start-card h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(28px, 4vw, 38px); line-height: 1.15; margin: 8px 0 14px; }
+.start-card p, .start-card li { font-size: 16px; line-height: 1.65; color: var(--ink-2); }
+.start-card p { margin: 0 0 12px; }
+.start-card b { color: #fff; }
+.start-card ul { padding-left: 20px; margin: 0 0 12px; }
+.start-card li::marker { color: var(--sky); }
+.start-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 20px; }
+.start-dots { display: flex; gap: 6px; }
+.start-dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, .2); }
+.start-dots i.on { background: var(--sun); }
+.start-skip { border: 0; background: none; color: var(--ink-3); font-size: 13px; cursor: pointer; text-decoration: underline; padding: 4px; }
+@media (max-width: 640px) {
+  #help-top { top: 10px; left: 10px; flex-direction: row; }
+  #title { padding-top: 64px; }
+  .help-pill { padding: 8px 12px; font-size: 12px; }
+  .guide-body { padding: 18px 16px 28px; }
+  .g-table td:first-child { white-space: normal; width: 38%; }
+  .g-table td { padding: 9px 8px; }
+  .calc label { grid-template-columns: minmax(0, 1fr) 80px; }
+  .calc label input { grid-column: 1 / -1; grid-row: 2; }
+  .start-card { padding: 22px 18px 18px; }
+}
+
 </style>
 </head>
 <body>
@@ -401,12 +500,26 @@ html.shot *, html.shot *::before, html.shot *::after { animation-duration: 0s !i
     <button class="iconbtn" id="b-src" title="Read the four source files" aria-label="Open source files">
       <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 7 3.5 12l5 5M15.5 7l5 5-5 5M13.5 4.5l-3 15"/></svg>
     </button>
+    <button class="iconbtn" id="b-help" title="Beginner guide: what is dew point? how to play" aria-label="Open beginner guide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.9"/><path d="M12 17.2v.1"/></svg>
+    </button>
     <button class="iconbtn" id="b-snd" title="Sound" aria-label="Toggle sound">
       <svg id="snd-on" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.8 7.8 0 0 1 0 11"/></svg>
       <svg id="snd-off" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/></svg>
     </button>
   </div>
 </header>
+
+<nav id="help-top" aria-label="Beginner help">
+  <button class="help-pill dew glow" data-guide="dew">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#9fd6ff" stroke-width="1.6" stroke-linejoin="round"><path d="M12 2.8c3.4 4.6 6 7.9 6 11.2a6 6 0 0 1-12 0c0-3.3 2.6-6.6 6-11.2z"/></svg>
+    What is dew point?
+  </button>
+  <button class="help-pill" data-guide="play">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#ffd58e" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m10 8.5 5 3.5-5 3.5z"/></svg>
+    How to play
+  </button>
+</nav>
 
 <main id="stage">
   <section class="screen" id="title">
@@ -461,6 +574,122 @@ html.shot *, html.shot *::before, html.shot *::after { animation-duration: 0s !i
     <button class="iconbtn ov-close" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
     <div class="src-body"><div class="code" id="src-code"></div><div class="src-note" id="src-note"></div></div>
   </div>
+</div>
+
+<div class="overlay" id="ov-guide" role="dialog" aria-label="Beginner guide">
+  <div class="ov-panel panel">
+    <div class="tabs" id="guide-tabs">
+      <button class="tab on" data-gtab="dew">What is dew point?</button>
+      <button class="tab" data-gtab="play">How to play</button>
+      <button class="tab" data-gtab="words">C++ words</button>
+    </div>
+    <button class="iconbtn ov-close" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+
+    <div class="guide-body" data-gpage="dew">
+      <h2>What is the dew point?</h2>
+      <div class="big-def">The <b>dew point</b> is the temperature the air has to cool down to before the water hiding in it turns into liquid drops: dew, fog, or rain.</div>
+      <p>That’s really all it is: a temperature. Like the air temperature, it’s measured in °C or °F.</p>
+
+      <h3>You’ve already seen it happen</h3>
+      <p>Take a cold drink outside on a hot summer day. After a minute the glass is wet on the outside. That water didn’t leak out of the glass. It came from the <b>air</b>. The air touching the glass cooled down past its dew point, so its invisible water vapor turned back into drops.</p>
+
+      <h3>Think of air as a sponge</h3>
+      <div class="g-cards">
+        <div class="g-card"><b>Warm air = big sponge</b>Warm air can hold a lot of invisible water vapor.</div>
+        <div class="g-card"><b>Cool it down = sponge shrinks</b>Colder air can hold less. At the dew point, the sponge is exactly full.</div>
+        <div class="g-card"><b>Cool it more = squeeze</b>Go colder than the dew point and water gets squeezed out as dew, fog, or rain.</div>
+      </div>
+
+      <h3>Three words you’ll see in the game</h3>
+      <table class="g-table">
+        <tr><td>Temperature</td><td>How warm or cold the air is right now.</td></tr>
+        <tr><td>Relative humidity (RH)</td><td>How full the “sponge” is, as a percentage. 50% means half full, 100% means completely full. <b>Heads up:</b> the C++ programs in this game type it as a decimal, so 50% is entered as <code>0.5</code> and 100% as <code>1.0</code>.</td></tr>
+        <tr><td>Dew point</td><td>The temperature where RH would hit 100%, so the air is full and water starts to appear.</td></tr>
+      </table>
+
+      <h3>Rules that are always true</h3>
+      <ul>
+        <li>The dew point is <b>never higher</b> than the air temperature. If a program ever says it is, the program has a bug.</li>
+        <li>When the humidity is 100%, the dew point <b>equals</b> the air temperature.</li>
+        <li>A <b>higher</b> dew point means more water in the air, so it feels muggier.</li>
+      </ul>
+
+      <h3>Why not just use humidity?</h3>
+      <p>Humidity can be misleading. A 30°F day with a 30°F dew point has <b>100%</b> humidity, but it feels dry and crisp. An 80°F day with a 60°F dew point has only <b>50%</b> humidity, but it feels much stickier. The higher dew point gives it away. If you want to know how humid it really <i>feels</i>, check the dew point.</p>
+
+      <h3>How it feels in summer</h3>
+      <table class="g-table">
+        <tr><td><span class="sw" style="background:#a6f3cf"></span>55°F (13°C) or less</td><td>Dry and comfortable</td></tr>
+        <tr><td><span class="sw" style="background:#ffd58e"></span>55–65°F (13–18°C)</td><td>Getting “sticky,” with muggy evenings</td></tr>
+        <tr><td><span class="sw" style="background:#ff9a9a"></span>65°F (18°C) or more</td><td>Lots of moisture, starting to feel oppressive</td></tr>
+      </table>
+
+      <h3>Try it yourself</h3>
+      <div class="calc" id="dew-calc">
+        <label>Air temperature <input type="range" id="dc-t" min="-10" max="40" step="1" value="30"><output id="dc-tv"></output></label>
+        <label>Relative humidity <input type="range" id="dc-h" min="5" max="100" step="1" value="60"><output id="dc-hv"></output></label>
+        <div class="calc-out" id="dc-out"></div>
+      </div>
+      <p class="g-small" style="margin-top:10px">Drag the sliders. Watch how the dew point gets closer to the air temperature as the humidity climbs toward 100%.</p>
+
+      <h3>How the programs calculate it</h3>
+      <p>You don’t need to memorize any math. The four programs all use a well-known formula (the <b>Magnus formula</b>). You type in the temperature and the humidity, and the program does the work with two fixed numbers: <code>17.27</code> and <code>237.7</code>. In the code, they’re named <code>DEW_A</code> and <code>DEW_B</code>. The game will point to them when it gets there.</p>
+      <p class="g-small">Source: the “Dew Point vs. Humidity” reference sheet in this folder (<a href="Dew%20Point%20Definition.png" target="_blank" rel="noopener">open the original</a>).</p>
+    </div>
+
+    <div class="guide-body" data-gpage="play" hidden>
+      <h2>How to play</h2>
+      <p><b>Never coded before? That’s fine.</b> You won’t write any code here. You’ll <i>read</i> it, one small piece at a time, and the game explains everything as you go.</p>
+      <ol class="g-steps">
+        <li><b>Pick where to start.</b> On the title screen, choose <b>Thirty-One Days of Rain</b> for the whole story. You can also pick a single project. Brand new? Start with the full story or <b>Project 1</b>, which is the easiest.</li>
+        <li><b>Follow the story.</b> When text appears, <b>click anywhere</b> or press <b>Enter</b> to continue.</li>
+        <li><b>Read the code together.</b> The code is on the left, and the lines being explained <b>glow</b>. The explanation is on the right. Use <b>Next</b> and <b>Back</b>, or the ← → arrow keys.</li>
+        <li><b>Explore the code.</b> Any time a line looks confusing, <b>click it</b>. The 🔍 <b>Code explorer</b> explains it in plain English, lists what its symbols mean, and shows which block it sits inside. Exploring never counts as an answer.</li>
+        <li><b>Answer questions.</b> Some are <b>multiple choice</b>: click an answer, or press 1–4. For others, you pick a line: press <b>👆 Pick my answer</b>, then click the line. Read the blue <b>“Before you answer”</b> box first. It gives you everything you need.</li>
+        <li><b>Wrong? Try again.</b> If your first answer is wrong, you get a <b>hint</b> and <b>one more try</b>. If the second try is wrong too, the game shows you the answer. Either way, you always get a full explanation.</li>
+      </ol>
+
+      <h3>The meters at the top</h3>
+      <table class="g-table">
+        <tr><td>☀︎ Sky</td><td>Goes up when you answer correctly. The clouds clear.</td></tr>
+        <tr><td>〰 Sea level</td><td>Rises a little each time a question ends wrong (after both tries). If it gets too high, the city floods and you can try again.</td></tr>
+        <tr><td>💧 Remember</td><td>How many people in Tokyo still remember the dew point. It’s part of the story.</td></tr>
+      </table>
+
+      <h3>Handy buttons (top right)</h3>
+      <ul>
+        <li><span class="g-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/></svg></span> <b>Codex</b>: every question you’ve answered so far, with its explanation.</li>
+        <li><span class="g-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 7 3.5 12l5 5M15.5 7l5 5-5 5"/></svg></span> <b>Source</b>: read the full C++ files any time.</li>
+        <li><span class="g-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.9"/></svg></span> <b>Help</b>: opens this guide again.</li>
+      </ul>
+      <p>Press <b>Esc</b> to close any window. Your progress <b>saves automatically</b>, so you can close the page and choose <b>Resume</b> later.</p>
+    </div>
+
+    <div class="guide-body" data-gpage="words" hidden>
+      <h2>C++ words, in plain English</h2>
+      <p>You’ll see these words a lot. You don’t need to memorize them. Come back here whenever one looks unfamiliar.</p>
+      <table class="g-table">
+        <tr><td><code>int main()</code></td><td>The starting point. The computer begins running the program here.</td></tr>
+        <tr><td><code>double</code></td><td>A number that can have decimals, like <code>23.5</code>. <code>int</code> is a whole number, like <code>7</code>.</td></tr>
+        <tr><td><code>string</code></td><td>A piece of text, like <code>"C"</code> or <code>"hello"</code>.</td></tr>
+        <tr><td>variable</td><td>A labeled box that holds a value. <code>double temp = 0;</code> makes a box named <code>temp</code> and puts 0 in it.</td></tr>
+        <tr><td><code>const</code></td><td>A box whose value can never change, like <code>DEW_A = 17.27</code>.</td></tr>
+        <tr><td><code>cout &lt;&lt;</code></td><td>Prints text on the screen (“console out”).</td></tr>
+        <tr><td><code>cin &gt;&gt;</code></td><td>Waits for the user to type something and stores it (“console in”).</td></tr>
+        <tr><td><code>if / else</code></td><td>Makes a choice: <i>if</i> this is true, do one thing; <i>otherwise</i>, do something else.</td></tr>
+        <tr><td><code>for</code> / <code>while</code></td><td>Loops: repeat some steps several times.</td></tr>
+        <tr><td><code>&amp;&amp;</code> and <code>||</code></td><td>“and” and “or.”</td></tr>
+        <tr><td><code>log()</code></td><td>A math function (natural logarithm) used in the dew point formula.</td></tr>
+        <tr><td>function</td><td>A named set of steps you can reuse, like a recipe.</td></tr>
+        <tr><td><code>class</code></td><td>A blueprint that groups data and functions together. It shows up in the last project.</td></tr>
+        <tr><td><code>//</code></td><td>A comment: a note for humans. The computer ignores it.</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="ov-start" role="dialog" aria-label="Welcome">
+  <div class="start-card" id="start-card"></div>
 </div>
 
 <div id="place"><div class="pl-jp"></div><div class="pl-en"></div><div class="pl-skip">click to continue</div></div>
@@ -4215,6 +4444,185 @@ window.Scene = Scene;
     return h;
   }
   const fixHTML = (src) => highlight(src).join('\n');
+
+  /* ---------------- code explorer: a plain-English note for any line ---------------- */
+  const TYPES = { int: ['a whole number', 'whole numbers'], double: ['a number with decimals', 'decimal numbers'], float: ['a number with decimals', 'decimal numbers'], string: ['a piece of text', 'pieces of text'], char: ['a single character', 'characters'], bool: ['true or false', 'true/false values'], long: ['a big whole number', 'big whole numbers'], size_t: ['a count (a whole number)', 'counts'], ostringstream: ['a text collector (ostringstream)', 'text collectors'], stringstream: ['a text reader (stringstream)', 'text readers'] };
+  const LIBS = { iostream: 'printing to the screen (<code>cout</code>) and reading the keyboard (<code>cin</code>)', cmath: 'maths, such as <code>log()</code> and <code>pow()</code>', string: 'working with text', fstream: 'reading and writing files', iomanip: 'formatting output, such as how many decimals to show', vector: 'lists that can grow (vectors)', sstream: 'pulling values out of a piece of text', cctype: 'letter tools such as <code>toupper()</code>', cstdlib: 'general tools such as <code>exit()</code>' };
+  const SYMBOLS = [
+    [/&&/, '<code>&amp;&amp;</code> means AND: both sides must be true.'],
+    [/\|\|/, '<code>||</code> means OR: at least one side must be true.'],
+    [/==/, '<code>==</code> asks “are these equal?” (a single <code>=</code> would store a value instead).'],
+    [/!=/, '<code>!=</code> means “is not equal to”.'],
+    [/<=|>=/, '<code>&lt;=</code> and <code>&gt;=</code> mean “less than or equal to” and “greater than or equal to”.'],
+    [/!(?!=)/, '<code>!</code> means NOT: it flips true to false and false to true.'],
+    [/\+\+|--/, '<code>++</code> adds 1, and <code>--</code> takes 1 away.'],
+    [/[+\-*/]=/, '<code>x += y</code> is short for <code>x = x + y</code> (the same goes for <code>-=</code>, <code>*=</code>, <code>/=</code>).'],
+    [/%/, '<code>%</code> gives the remainder after dividing: <code>7 % 3</code> is 1.'],
+    [/::/, '<code>::</code> means “belonging to”: <code>Weather::print</code> is the <code>print</code> that belongs to <code>Weather</code>.'],
+    [/\blog\s*\(/, '<code>log()</code> is the natural logarithm, one piece of the dew point formula.'],
+    [/\bpow\s*\(/, '<code>pow(a, b)</code> means a to the power of b.'],
+    [/\bsqrt\s*\(/, '<code>sqrt()</code> is the square root.'],
+    [/\btoupper\s*\(/, '<code>toupper()</code> turns a letter into a capital.'],
+    [/\.substr\s*\(/, '<code>.substr(start, count)</code> cuts a smaller piece out of a text, starting at position <i>start</i> (the first letter is position 0).'],
+    [/\.(length|size)\s*\(/, '<code>.length()</code> / <code>.size()</code> counts the letters in a text or the items in a list.'],
+    [/\.push_back\s*\(/, '<code>.push_back()</code> adds an item to the end of a list.'],
+    [/\bsetprecision\s*\(/, '<code>setprecision(n)</code> sets how many digits are shown.'],
+    [/\bfixed\b/, '<code>fixed</code> shows numbers with normal decimals instead of scientific notation.'],
+    [/\bsetw\s*\(/, '<code>setw(n)</code> pads the next value to n characters wide, so columns line up.'],
+    [/\bendl\b/, '<code>endl</code> ends the line, like pressing Enter.'],
+    [/\[\s*\w+\s*\]/, '<code>list[i]</code> picks item number i from a list (counting from 0).'],
+    [/\w\s*&\s*\w+\s*[,)]/, 'A <code>&amp;</code> after a type means “by reference”: the function works on the original, not a copy.'],
+  ];
+  // split a line into code (with and without its literals) and any trailing // comment
+  function splitLine(s) {
+    let code = '', bare = '', strs = [], i = 0;
+    while (i < s.length) {
+      const ch = s[i];
+      if (ch === '/' && s[i + 1] === '/') return { code, bare, strs, note: s.slice(i + 2).trim() };
+      if (ch === '"' || ch === "'") {
+        let j = i + 1, t = '';
+        while (j < s.length && s[j] !== ch) { if (s[j] === '\\') { t += s.slice(j, j + 2); j += 2; } else t += s[j++]; }
+        if (ch === '"') strs.push(t);
+        code += s.slice(i, j + 1); bare += ch + ch; i = j + 1; continue;
+      }
+      code += ch; bare += ch; i++;
+    }
+    return { code, bare, strs, note: '' };
+  }
+  // which { } blocks each line sits inside, worked out once per file
+  const STRUCT = {};
+  function structure(f) {
+    if (STRUCT[f]) return STRUCT[f];
+    const par = [], opens = {}, closeOf = {}, closes = {}, cmt = [], stack = [];
+    let inC = false, lastHead = -1;
+    RAW[f].forEach((raw, k) => {
+      par[k] = stack.slice();
+      const t = raw.trim();
+      if (inC) { cmt[k] = true; if (t.includes('*/')) inC = false; return; }
+      if (t.startsWith('/*')) { cmt[k] = true; if (!t.includes('*/')) inC = true; return; }
+      const b = splitLine(raw).bare.trim();
+      for (const ch of b) {
+        if (ch === '{') { const h = b === '{' ? lastHead : k; opens[k] = h; stack.push(h); }
+        else if (ch === '}' && stack.length) { const h = stack.pop(); closes[k] = h; closeOf[h] = k; }
+      }
+      if (b && !/^[{}\s;]+$/.test(b)) lastHead = k;
+    });
+    return (STRUCT[f] = { par, opens, closes, closeOf, cmt });
+  }
+  const short = (s, n = 64) => { s = splitLine(s).code.trim(); return s.length > n ? s.slice(0, n - 1) + '…' : s; };
+  const typeName = (t, plural) => {
+    t = t.replace(/^const\s+/, '').replace(/\s*[&*]$/, '').trim();
+    const v = t.match(/^vector\s*<\s*(\w+)\s*>$/);
+    if (v) return `a list (vector) of ${TYPES[v[1]] ? TYPES[v[1]][1] : `<code>${esc(v[1])}</code> items`}`;
+    return TYPES[t] ? TYPES[t][plural ? 1 : 0] : t === 'void' ? 'nothing' : `a <code>${esc(t)}</code>`;
+  };
+  // the text between the first ( and its matching ), plus whatever follows
+  function parens(c) {
+    const a = c.indexOf('('); if (a < 0) return null;
+    let d = 0;
+    for (let i = a; i < c.length; i++) { if (c[i] === '(') d++; else if (c[i] === ')' && --d === 0) return { inside: c.slice(a + 1, i).trim(), rest: c.slice(i + 1).trim() }; }
+    return { inside: c.slice(a + 1).trim(), rest: '' };
+  }
+  const params = (p) => !p.trim() || p.trim() === 'void' ? 'takes no inputs' : 'takes ' + p.split(',').map(x => {
+    const m = x.trim().match(/^(.*?)[\s&*]+(\w+)$/); return m ? `${typeName(m[1])} called <code>${esc(m[2])}</code>` : `<code>${esc(x.trim())}</code>`;
+  }).join(', ');
+  function explainLine(f, k) {
+    const S = structure(f), raw = RAW[f][k], q = (x) => `<code>${esc(x)}</code>`;
+    if (S.cmt[k]) return { main: 'Part of a comment block: notes written for humans. The computer skips everything between <code>/*</code> and <code>*/</code>.' };
+    if (!raw.trim()) return { main: 'An empty line. Blank lines only make code easier to read. The computer ignores them.' };
+    const { code, bare, strs, note } = splitLine(raw), c = code.trim(), heads = S.par[k].map(h => RAW[f][h]);
+    if (!c) return { main: `A comment: a note for humans, which the computer skips. It says <i>“${esc(note)}”</i>` };
+    let m, p, main;
+    const inMain = heads.some(h => /\bmain\s*\(/.test(h));
+    if ((m = c.match(/^#include\s*<(\w+)>/))) main = `Brings in the <b>${m[1]}</b> library: ready-made tools for ${LIBS[m[1]] || 'the program to use'}.`;
+    else if (/^using\s+namespace\s+std/.test(c)) main = `Lets the code write ${q('cout')} instead of the longer ${q('std::cout')}.`;
+    else if (c === '{') main = S.opens[k] >= 0 ? `Opens a block. Everything up to the matching ${q('}')} belongs to line ${S.opens[k] + 1}: ${q(short(RAW[f][S.opens[k]]))}` : 'Opens a block of code.';
+    else if (/^}[\s;]*$/.test(c)) main = S.closes[k] != null && S.closes[k] >= 0 ? `Closes the block that started on line ${S.closes[k] + 1}: ${q(short(RAW[f][S.closes[k]]))}` : 'Closes a block of code.';
+    else if (/^(int\s+)?main\s*\(/.test(c)) main = 'The starting point. When the program runs, the computer begins here, at <code>main()</code>.';
+    else if ((m = c.match(/^return\b\s*(.*?);?$/))) main = inMain && /^0?$/.test(m[1].trim()) ? 'Ends the program. Returning 0 means “everything went fine.”' : m[1] ? `Ends this function and hands ${q(m[1])} back to the code that called it.` : 'Ends this function right here.';
+    else if ((m = c.match(/^const\s+([\w<>]+)\s+(\w+)\s*=\s*(.+?);$/))) main = `Creates a <b>constant</b> named ${q(m[2])}: ${typeName(m[1])}, fixed at ${q(m[3])}. It can never change while the program runs.`;
+    else if ((m = c.match(/^(class|struct)\s+(\w+)/))) main = `Starts a <b>class</b> named ${q(m[2])}: a blueprint that bundles data together with the functions that work on it.`;
+    else if (/^public\s*:/.test(c)) main = 'Everything below this line can be used from outside the class.';
+    else if (/^(private|protected)\s*:/.test(c)) main = 'Everything below this line is hidden inside the class. Only the class’s own functions can touch it.';
+    else if (/^friend\b/.test(c)) main = 'Gives an outside function permission to see this class’s private data.';
+    else if (/^(}\s*)?else\s+if\b/.test(c) && (p = parens(c))) main = `Otherwise, checks a new condition: is ${q(p.inside)} true? If it is, the block below runs.`;
+    else if (/^if\b/.test(c) && (p = parens(c))) main = `Asks a yes-or-no question: is ${q(p.inside)} true? If yes, ${p.rest && p.rest !== '{' ? `it runs ${q(p.rest)}` : 'the code in the block below runs'}. If no, that code is skipped.`;
+    else if (/^(}\s*)?else\b/.test(c)) main = 'The “otherwise” part: the code below runs only when the <code>if</code> above was false.';
+    else if (/^for\b/.test(c) && (p = parens(c))) { const [a, b2, s] = p.inside.split(';').map(x => x.trim()); main = `A <b>loop</b> that repeats the block below. It starts with ${q(a || '(nothing)')}, keeps going while ${q(b2 || 'true')} is true, and does ${q(s || '(nothing)')} after each round.`; }
+    else if (/^}\s*while\b/.test(c) && (p = parens(c))) main = `The end of a do-while loop: go back to <code>do</code> and repeat while ${q(p.inside)} is true.`;
+    else if (/^while\b/.test(c) && (p = parens(c))) main = `A <b>loop</b>: keeps repeating the block below as long as ${q(p.inside)} is true.`;
+    else if (/^do\b/.test(c)) main = 'Starts a do-while loop: the block below runs at least once, then repeats while the condition at its end is true.';
+    else if (/^switch\b/.test(c) && (p = parens(c))) main = `Picks one of several paths depending on the value of ${q(p.inside)}. Each <code>case</code> below is one path.`;
+    else if ((m = c.match(/^case\s+(.+?)\s*:/))) main = `One path of the <code>switch</code>: it runs when the value is ${q(m[1])}.`;
+    else if (/^default\s*:/.test(c)) main = 'The fallback path of the <code>switch</code>: it runs when no <code>case</code> matched.';
+    else if (/^break\s*;/.test(c)) main = 'Jumps straight out of the current <code>switch</code> or loop.';
+    else if (/^continue\s*;/.test(c)) main = 'Skips the rest of this round of the loop and starts the next round.';
+    else if (/^cout\s*<</.test(c) || /^<</.test(c) || (/^""/.test(bare.trim()) && /<<|;\s*$/.test(bare))) {
+      const cont = !/^cout/.test(c);
+      const vals = (cont ? bare : bare.split('<<').slice(1).join('<<')).split('<<').map(x => x.replace(/[;}\s]+$/, '').trim()).filter(x => x && x !== '""' && x !== "''" && !/^(endl|fixed|left|right|showpoint|setprecision\(.*\)|setw\(.*\))$/.test(x));
+      const words = strs.filter(s => s.replace(/\\[tn]/g, '').trim()).map(s => `“${esc(s)}”`);
+      main = (cont ? 'Continues the <code>cout</code> from the line above. It p' : 'P') + `rints to the screen${words.length ? `: the text ${words.join(' and ')}` : ''}${vals.length ? `${words.length ? ', plus' : ':'} the value of ${vals.map(q).join(', ')}` : ''}.` + (!words.length && !vals.length ? ' Here that’s just formatting or a line break.' : '');
+    }
+    else if ((m = c.match(/^cin\s*>>\s*(.+?);?$/))) main = `Waits for the user to type something, then stores it in ${m[1].split('>>').map(x => q(x.trim())).join(' and ')}.`;
+    else if ((m = c.match(/^(\w+)\s*>>\s*(.+?);?$/))) main = `Reads the next value from ${q(m[1])} and stores it in ${m[2].split('>>').map(x => q(x.trim())).join(' and ')}.`;
+    else if (/^(\w+\s*=\s*)?getline\b/.test(c) || /\bgetline\s*\(/.test(c)) { p = parens(c.slice(c.indexOf('getline'))); const a = p ? p.inside.split(',').map(x => x.trim()) : []; main = `Reads a whole line of text${a[0] ? ` from ${q(a[0])}` : ''}${a[1] ? ` into ${q(a[1])}` : ''}.`; }
+    else if ((m = c.match(/^(?:std::)?(ifstream|ofstream|fstream)\s+(\w+)/))) main = `Creates a file connection named ${q(m[2])}, for ${m[1] === 'ofstream' ? 'writing to' : 'reading from'} a file.`;
+    else if ((m = c.match(/^stringstream\s+(\w+)\s*\(\s*(\w+)\s*\)/))) main = `Wraps the text in ${q(m[2])} so the code can pull values out of it one at a time, as if it were typed on the keyboard. The wrapper is called ${q(m[1])}.`;
+    else if ((m = c.match(/^(\w+)::\1\s*\(/)) && (p = parens(c))) main = `A <b>constructor</b>: the steps that set up a brand-new ${q(m[1])} object. It ${params(p.inside)}.`;
+    else if ((m = c.match(/^((?:const\s+)?[A-Za-z_][\w<>:]*)(?:\s*[&*]\s*|\s+)((?:\w+::)?(?:operator\s*\S+?|\w+))\s*\(/)) && !/^(return|else|new|delete)$/.test(m[1]) && (p = parens(c))) {
+      if (/;$/.test(p.rest) && p.inside && !p.inside.split(',').some(x => /\w[\s&*]+\w/.test(x.trim()))) main = `Creates a ${q(m[1])} object named ${q(m[2])}, filled in with ${q(p.inside)}.`;
+      else {
+      const name = m[2], op = name.match(/operator\s*(\S+)/), owner = name.includes('::') ? name.split('::')[0] : null, proto = /;$/.test(p.rest);
+      const what = op ? `defines what ${q(op[1])} does for ${owner ? q(owner) : 'this class'}` : `${proto ? 'announces' : 'starts'} a <b>function</b> named ${q(name)}${owner ? `, which belongs to ${q(owner)}` : ''}`;
+      main = `${what[0].toUpperCase() + what.slice(1)}. It ${params(p.inside)} and gives back ${typeName(m[1].trim())}.` + (proto ? ' The full steps are written further down the file.' : '');
+      }
+    }
+    else if ((m = c.match(/^((?:const\s+)?(?:unsigned\s+)?(?:int|double|float|string|char|bool|long|size_t|auto|[io]?stringstream|vector\s*<\s*\w+\s*>|[A-Z]\w*))\s+(\w+)\s*(?:=\s*(.+?))?\s*;$/)))
+      main = /,\s*\w+\s*=/.test(m[3] || '') ? `Creates several variables at once, each holding ${typeName(m[1])}.` : `Creates a <b>variable</b> (a labelled box) named ${q(m[2])} that holds ${typeName(m[1])}${m[3] ? `, starting at ${q(m[3])}` : ''}.`;
+    else if ((m = c.match(/^([\w.\[\]]+)\s*(\+\+|--)\s*;$/)) || (m = c.match(/^(\+\+|--)\s*([\w.\[\]]+)\s*;$/))) { const v = m[1] === '++' || m[1] === '--' ? m[2] : m[1], up = c.includes('++'); main = `${up ? 'Adds 1 to' : 'Takes 1 away from'} ${q(v)}.`; }
+    else if ((m = c.match(/^([\w.\[\]]+)\s*([+\-*/])=\s*(.+?);$/))) main = `Updates ${q(m[1])}: it becomes ${q(`${m[1]} ${m[2]} (${m[3]})`)}.`;
+    else if ((m = c.match(/^([\w.\[\]>-]+)\s*=\s*(.+?);$/))) main = /^[-\w."']+$/.test(m[2].trim()) ? `Sets ${q(m[1])} to ${q(m[2].trim())}.` : `Works out ${q(m[2])} and stores the answer in ${q(m[1])}.`;
+    else if ((m = c.match(/^([\w.\[\]]+)\s*=\s*(.+)$/))) main = `Starts working out a long formula. It continues on the next line, and the answer is stored in ${q(m[1])}.`;
+    else if ((m = c.match(/^(\w+)\s*<<\s*(.+?);?$/))) main = `Sends ${m[2].split('<<').map(x => q(x.trim())).join(' and ')} into ${q(m[1])}, which collects it as text.`;
+    else if ((m = c.match(/^(\w+)\s*\(/)) && (p = parens(c)) && p.inside.split(',').some(x => /\w[\s&*]+\w/.test(x.trim())))
+      main = heads.some(h => new RegExp(`^\\s*class\\s+${m[1]}\\b`).test(h)) ? `Announces a <b>constructor</b>: the steps that set up a brand-new ${q(m[1])} object. It ${params(p.inside)}. The full steps are written further down.` : `Announces a function named ${q(m[1])}. It ${params(p.inside)}.`;
+    else if ((m = c.match(/^(\w+)\s*\(\s*\)\s*;$/)) && heads.some(h => new RegExp(`^\\s*class\\s+${m[1]}\\b`).test(h))) main = `Announces the <b>default constructor</b>: the steps that set up a new ${q(m[1])} object when no details are given.`;
+    else if ((m = c.match(/^([\w.]+)\s*\((.*)\)\s*;$/))) main = `Calls (runs) ${m[1].includes('.') ? 'the action' : 'the function'} ${q(m[1])}${m[2].trim() ? ` and hands it ${q(m[2].trim())}` : ''}.`;
+    else if ((m = bare.trim().match(/^(&&|\|\|)/))) main = `Continues the condition from the line above: ${m[1] === '&&' ? '<b>and</b> this part must be true too' : '<b>or</b> this part could be true instead'}.`;
+    else if ((m = c.match(/^((?:const\s+)?(?:int|double|float|string|char|bool|long))\s+(\w+(?:\s*,\s*\w+)+)\s*;$/))) main = `Creates several variables at once (${m[2].split(',').map(x => q(x.trim())).join(', ')}), each holding ${typeName(m[1])}.`;
+    else if ((m = c.match(/^~(\w+)\s*\(/))) main = `A <b>destructor</b>: the clean-up steps that run when a ${q(m[1])} object is thrown away.`;
+    else if (/,$/.test(c)) main = 'Continues a list from the line above, such as a function’s inputs. Long lists are often split across lines.';
+    else if (/^[(\-+*/]/.test(c)) main = 'Continues the calculation from the line above. Long formulas are often split across lines to keep them readable.';
+    else if (/\)\s*;?$/.test(c) && !/[=]/.test(bare.replace(/[=!<>]=/g, ''))) main = /(==|!=|<=|>=|&&|\|\|)/.test(bare) ? 'Finishes a long condition that started on the line above.' : 'Finishes a list that started on the line above, such as a function’s inputs.';
+    else if (/(==|!=|<=|>=|&&|\|\|)/.test(bare)) main = 'Part of a long condition that is split across several lines. Read it together with the lines around it.';
+    else if (/<</.test(bare)) main = 'Continues the <code>cout</code> from the line above: more values and text printed to the screen.';
+    else main = 'Part of a longer statement. Read it together with the lines just above and below.';
+    const sym = SYMBOLS.filter(([re]) => re.test(bare)).map(([, t]) => t);
+    return { main, sym, note, heads: S.par[k].map(h => h) };
+  }
+  function explainHTML(f, k) {
+    const x = explainLine(f, k);
+    const crumbs = (x.heads || []).filter(h => h >= 0).map(h => `<li><span class="xp-n">line ${h + 1}</span><code>${esc(short(RAW[f][h], 48))}</code></li>`).join('');
+    return `<div class="xp-h">🔍 Line ${k + 1} in plain English</div>
+      <div class="xp-code"><code>${esc(RAW[f][k].trim() || '(empty line)')}</code></div>
+      <p class="xp-p">${x.main}</p>
+      ${x.note ? `<p class="xp-p">The note after <code>//</code> is a comment for humans: <i>“${esc(x.note)}”</i></p>` : ''}
+      ${x.sym && x.sym.length ? `<div class="xp-k">Symbols on this line</div><ul class="xp-ul">${x.sym.map(s => `<li>${s}</li>`).join('')}</ul>` : ''}
+      ${crumbs ? `<div class="xp-k">Where it lives</div><p class="xp-p" style="margin-bottom:6px">It sits inside these blocks (outermost first). The faint blue lines on the left are its block.</p><ol class="xp-tree">${crumbs}</ol>` : ''}`;
+  }
+  const XP_EMPTY = (msg) => `<div class="xp-h">🔍 Code explorer</div><p class="xp-p">${msg}</p>`;
+  function exploreLine(code, box, ln) {
+    const f = ln.dataset.f || code.dataset.file, k = +ln.dataset.l, S = structure(f);
+    $$('.ln.xsel, .ln.blk', code).forEach(e => e.classList.remove('xsel', 'blk'));
+    ln.classList.add('xsel');
+    const head = S.par[k].length ? S.par[k][S.par[k].length - 1] : -1;
+    if (head >= 0) {
+      const end = S.closeOf[head] != null ? S.closeOf[head] : k;
+      $$('.ln:not(.gap)', code).forEach(e => { const l = +e.dataset.l; if ((e.dataset.f || code.dataset.file) === f && l >= head && l <= end && e !== ln) e.classList.add('blk'); });
+    }
+    box.innerHTML = explainHTML(f, k); box.classList.add('on');
+    box.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
   // a question's code: one or more pieces of a file (or of two files)
   function resolveSegs(q, ch) {
     return (Array.isArray(q.code) ? q.code : [q.code]).map(sg => {
@@ -4243,7 +4651,7 @@ window.Scene = Scene;
   function toast(msg) { const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 3300); }
 
   /* ---------------- screens ---------------- */
-  function show(id) { $$('.screen').forEach(s => s.classList.toggle('on', s.id === id)); }
+  function show(id) { $$('.screen').forEach(s => s.classList.toggle('on', s.id === id)); document.body.classList.toggle('at-title', id === 'title'); }
   function fade(to, ms = 1600) { const f = $('#fade'); f.style.transitionDuration = ms + 'ms'; f.style.opacity = to; return wait(ms); }
 
   // wait for a click on an element, or Space / Enter. Only one wait is live at a time.
@@ -4330,7 +4738,7 @@ window.Scene = Scene;
   /* ---------------- lesson ---------------- */
   function codePanel(f, html, label, rng) {
     $('#code-file').textContent = FILES[f].name; $('#code-rng').textContent = rng || '';
-    const code = $('#code'); code.className = 'code'; code.innerHTML = html;
+    const code = $('#code'); code.className = 'code'; code.innerHTML = html; code.dataset.file = f; code.onclick = null;
     $('#code-full').onclick = () => openSource(f, label);
     // restart panel animation
     ['#code-panel', '#side-panel'].forEach(s => { const el = $(s); el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; });
@@ -4348,22 +4756,25 @@ window.Scene = Scene;
     $('#code-panel').style.display = '';
     codePanel(f, codeHTML(f, 0, RAW[f].length), null, `${RAW[f].length} lines`);
     const code = $('#code');
+    code.classList.add('explore');
+    code.onclick = (e) => { const ln = e.target.closest('.ln'); if (ln && !ln.classList.contains('gap')) exploreLine(code, $('#xp'), ln); };
     let i = 0;
     return new Promise(res => {
       const render = () => {
         render.n = render.n || 0;
         const s = steps[i], at = locate(f, s.find);
-        $$('.ln.focus', code).forEach(e => e.classList.remove('focus'));
+        $$('.ln.focus, .ln.xsel, .ln.blk', code).forEach(e => e.classList.remove('focus', 'xsel', 'blk'));
         for (let k = at; k < at + s.n; k++) { const e = code.querySelector(`[data-l="${k}"]`); if (e) e.classList.add('focus'); }
         scrollToLine(code, at, render.n++ > 0);
         $('#code-rng').textContent = `lines ${at + 1}–${at + s.n}`;
         $('#side-panel').innerHTML = `
           <div class="side">
-            ${i === 0 ? `<div class="amane"><div class="av"></div><p>Let’s read it together first. Follow the glowing lines on the left.</p></div>` : ''}
+            ${i === 0 ? `<div class="amane"><div class="av"></div><p>Let’s read it together first. Follow the glowing lines on the left. Curious about any other line? Click it, and I’ll explain it in plain English.</p></div>` : ''}
             <div class="eyebrow">Reading <span class="dot"></span><span class="muted">Step ${i + 1} of ${steps.length}</span></div>
             <h2>${s.title}</h2>
             <div class="prose">${s.text}</div>
             <div class="steps">${steps.map((_, k) => `<i class="${k <= i ? 'on' : ''}"></i>`).join('')}</div>
+            <div class="xp" id="xp">${XP_EMPTY('Click any line of code on the left to see what it does and which block it belongs to.')}</div>
           </div>
           <div class="nav">
             <button class="btn small ghost" id="l-prev" ${i === 0 ? 'disabled style="opacity:.3"' : ''}>Back</button>
@@ -4399,46 +4810,81 @@ window.Scene = Scene;
     const code = $('#code'); code.scrollTop = 0; code.classList.add('wrap');
     const side = $('#side-panel');
     const opts = q.type === 'mcq' ? shuffle(q.options) : null;
+    const POINTER = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3.5v11l2.6-2.4 2 4.6 2-.9-2-4.5h3.6z"/></svg>';
     side.innerHTML = `
       <div class="side" id="q-side">
+        ${firstAsk ? `<div class="amane"><div class="av"></div><p>Your first question! ${q.primer ? 'Read the blue box below first. It has everything you need. ' : ''}Not sure what a line of code does? Click it on the left and I’ll explain it in plain English. If your first guess is wrong, you get a hint and one more try.</p></div>` : ''}
         <div class="eyebrow">${label} <span class="dot"></span><span class="muted">${q.concept}</span></div>
         ${q.primer ? `<div class="primer"><div class="primer-h">Before you answer</div><ul>${q.primer.map(p => `<li>${p}</li>`).join('')}</ul></div>` : ''}
         <div class="q-prompt">${q.prompt}</div>
         ${opts ? `<div class="opts">${opts.map((o, i) => `<button class="opt" data-i="${i}"><span class="lt">${'ABCD'[i]}</span><span>${o.t}</span></button>`).join('')}</div>`
-               : `<div class="pick-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3.5v11l2.6-2.4 2 4.6 2-.9-2-4.5h3.6z"/></svg><span>Click a line in the code on the left.</span></div>`}
+               : `<div class="seg xp-mode" role="radiogroup" aria-label="What clicking a line does">
+                    <button class="seg-b on" data-xm="explore" role="radio" aria-checked="true">🔍 Explore lines</button>
+                    <button class="seg-b" data-xm="answer" role="radio" aria-checked="false">👆 Pick my answer</button>
+                  </div>
+                  <div class="pick-hint">${POINTER}<span id="pick-msg"></span></div>`}
+        <div id="q-try"></div>
+        <div class="xp" id="xp">${XP_EMPTY(opts ? 'Click any line of code on the left to see what it does, in plain English. Exploring never answers the question.' : 'In <b>Explore</b> mode, clicking a line only explains it. Nothing is answered until you switch to <b>Pick my answer</b>.')}</div>
         <div id="q-fb"></div>
       </div>`;
-    let correct, chosen = null, pickedLine = null, targetLine = null;
+    firstAsk = false;
+    let correct, chosen = null, pickedLine = null, targetLine = null, tries = 0, mode = 'explore', done = false;
     if (q.type === 'line') {
       let c = 0;
       outer: for (const sg of segs) for (let k = sg.at; k < sg.end; k++) if (RAW[sg.f][k].indexOf(q.pick.has) >= 0 && ++c === (q.pick.nth || 1)) { targetLine = sg.f + ':' + k; break outer; }
     }
-    await new Promise(res => {
+    const xp = $('#xp');
+    const setMode = (m) => {
+      mode = m;
+      $$('.xp-mode .seg-b', side).forEach(b => { b.classList.toggle('on', b.dataset.xm === m); b.setAttribute('aria-checked', b.dataset.xm === m); });
+      code.classList.toggle('pick', m === 'answer' && !done); code.classList.toggle('explore', m === 'explore' || done);
+      const msg = $('#pick-msg');
+      if (msg) msg.innerHTML = done ? 'Click any line to explore it.' : m === 'answer' ? 'Now click the line in the code that answers the question.' : 'Explore first: click any line to see what it does. Ready? Press <b>Pick my answer</b>, then click a line.';
+    };
+    $$('.xp-mode .seg-b', side).forEach(b => b.onclick = () => { Audio2.tick(); setMode(b.dataset.xm); });
+    setMode('explore');
+    // a wrong first try: show a hint and let them go again
+    const strike = (hint) => {
+      Audio2.tick(); pulse('#m-sea', false);
+      const left = TRIES - tries;
+      $('#q-try').innerHTML = `
+        <div class="try">
+          <div class="try-h">${ICON_RAIN}<span>Not quite. ${left === 1 ? 'You have one more try.' : `You have ${left} more tries.`}</span></div>
+          <div class="try-b"><b>Hint:</b> ${hint}</div>
+          <div class="try-tip">${opts ? 'Tip: click lines in the code on the left to see what each one does, then pick again.' : 'Tip: switch to <b>🔍 Explore lines</b> to check what a line does before you pick again.'}</div>
+        </div>`;
+      setTimeout(() => $('#q-try').scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
+    };
+    const el = await new Promise(res => {
       const key = (e) => {
         if (overlayOpen() || !opts) return;
         const n = '1234'.indexOf(e.key), m = 'abcd'.indexOf(e.key.toLowerCase());
-        const idx = n >= 0 ? n : m; if (idx >= 0 && idx < opts.length) { const b = side.querySelector(`.opt[data-i="${idx}"]`); if (b) b.click(); }
+        const idx = n >= 0 ? n : m; if (idx >= 0 && idx < opts.length) { const b = side.querySelector(`.opt[data-i="${idx}"]`); if (b && !b.disabled) b.click(); }
       };
       document.addEventListener('keydown', key);
+      const finish = (target) => { done = true; document.removeEventListener('keydown', key); setMode('explore'); $$('.xp-mode', side).forEach(x => x.style.display = 'none'); res(target); };
       if (opts) {
         $$('.opt', side).forEach(b => b.onclick = () => {
-          document.removeEventListener('keydown', key);
-          chosen = opts[+b.dataset.i]; correct = !!chosen.ok;
-          $$('.opt', side).forEach(x => { x.disabled = true; const o = opts[+x.dataset.i]; if (o.ok) x.classList.add('ok'); else if (x === b) x.classList.add('no'); else x.classList.add('fade'); });
-          res(b);
-        });
-      } else {
-        code.classList.add('pick');
-        $$('.ln:not(.gap)', code).forEach(ln => ln.onclick = () => {
-          document.removeEventListener('keydown', key);
-          code.classList.remove('pick'); $$('.ln', code).forEach(x => x.onclick = null);
-          pickedLine = ln.dataset.f + ':' + ln.dataset.l; correct = pickedLine === targetLine;
-          const [tf, tl] = targetLine.split(':'); const t = code.querySelector(`[data-f="${tf}"][data-l="${tl}"]`); if (t) t.classList.add('right');
-          if (!correct) ln.classList.add('wrong');
-          res(ln);
+          if (b.disabled) return;
+          chosen = opts[+b.dataset.i]; correct = !!chosen.ok; tries++;
+          if (!correct && tries < TRIES) { b.disabled = true; b.classList.add('no'); strike(chosen.why || 'Re-read the blue box above, then look at the code again.'); return; }
+          $$('.opt', side).forEach(x => { x.disabled = true; const o = opts[+x.dataset.i]; if (o.ok) x.classList.add('ok'); else if (x === b || x.classList.contains('no')) x.classList.add('no'); else x.classList.add('fade'); });
+          finish(b);
         });
       }
-    }).then(el => resolveAnswer(el, correct));
+      code.onclick = (e) => {
+        const ln = e.target.closest('.ln'); if (!ln || ln.classList.contains('gap')) return;
+        if (opts || done || mode === 'explore') return exploreLine(code, xp, ln);
+        if (ln.classList.contains('tried')) return;
+        pickedLine = ln.dataset.f + ':' + ln.dataset.l; correct = pickedLine === targetLine; tries++;
+        if (!correct && tries < TRIES) { ln.classList.add('tried'); strike(q.wrongLine || 'Re-read the question, then explore the lines around your pick.'); return; }
+        const [tf, tl] = targetLine.split(':'); const t = code.querySelector(`[data-f="${tf}"][data-l="${tl}"]`); if (t) t.classList.add('right');
+        if (!correct) ln.classList.add('wrong');
+        finish(ln);
+      };
+    });
+    resolveAnswer(el, correct, tries > 1);
+    if ($('#q-try').innerHTML) { const h = $('#q-try .try-h span'); if (h) h.textContent = 'Your first try'; $('#q-try .try-tip').remove(); }
 
     // feedback
     const fb = $('#q-fb');
@@ -4446,8 +4892,8 @@ window.Scene = Scene;
     const right = q.type === 'mcq' ? `<h4>${correct ? 'Why it’s right' : 'The right answer'}</h4><div class="prose">${correct ? '' : `<b>${q.options.find(o => o.ok).t}</b><br><br>`}${q.explain}</div>` : `<h4>${correct ? 'Exactly — here’s why' : 'The line that matters'}</h4><div class="prose">${q.explain}</div>`;
     fb.innerHTML = `
       <div class="fb ${correct ? 'good' : 'bad'}">
-        <div class="fb-head">${correct ? ICON_SUN : ICON_RAIN}<span>${correct ? 'The clouds part.' : 'The rain grows heavier.'}</span></div>
-        <div class="fb-sub">${correct ? 'A drop of knowledge crystallises' : `A drop of knowledge sinks · sea level +${(WRONG * 42).toFixed(1)} m`}</div>
+        <div class="fb-head">${correct ? ICON_SUN : ICON_RAIN}<span>${correct ? (tries > 1 ? 'Got it on your second try.' : 'The clouds part.') : 'The rain grows heavier.'}</span></div>
+        <div class="fb-sub">${correct ? (tries > 1 ? 'The hint helped · a drop of knowledge crystallises' : 'A drop of knowledge crystallises') : `A drop of knowledge sinks · sea level +${(WRONG * 42).toFixed(1)} m`}</div>
         ${yours}${right}
         ${q.fix ? `<h4>A better way</h4><pre class="fix">${fixHTML(q.fix)}</pre>` : ''}
         <div class="key">${DROP(correct ? '#fff3d6' : '#bfe2ff', correct ? '#ffb36b' : '#3f7fd6')}<span>${q.key}</span></div>
@@ -4476,12 +4922,14 @@ window.Scene = Scene;
     }
   }
 
-  let currentQ = null;
-  function resolveAnswer(el, correct) {
+  // two tries per question: a wrong first answer earns a hint, the second reveals the answer
+  const TRIES = 2;
+  let currentQ = null, firstAsk = true;
+  function resolveAnswer(el, correct, assisted) {
     const id = currentQ.id, prev = G.results[id];
     if (correct) {
       G.results[id] = prev === 'lost' ? 'rec' : 'ok';
-      G.flood = clamp(G.flood - (prev === 'lost' ? 0.06 : RIGHT), 0.04, 1);
+      G.flood = clamp(G.flood - (prev === 'lost' ? 0.06 : assisted ? RIGHT / 2 : RIGHT), 0.04, 1);
       Scene.sunburst(); Audio2.chime(); fly(el, true);
       pulse('#m-sky', true); pulse('#m-mem', true);
       $('#flare').style.opacity = 1; setTimeout(() => $('#flare').style.opacity = 0, 2600);
@@ -4708,6 +5156,73 @@ window.Scene = Scene;
   $$('.overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('on'); }));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') $$('.overlay.on').forEach(o => o.classList.remove('on')); });
   $('#b-codex').onclick = openCodex;
+
+  /* ---------------- beginner guide ---------------- */
+  function guideTab(t) {
+    $$('#guide-tabs .tab').forEach(b => b.classList.toggle('on', b.dataset.gtab === t));
+    $$('#ov-guide [data-gpage]').forEach(p => { p.hidden = p.dataset.gpage !== t; if (!p.hidden) p.scrollTop = 0; });
+  }
+  function openGuide(t = 'dew') { Audio2.tick(); guideTab(t); $('#ov-guide').classList.add('on'); }
+  $$('#guide-tabs .tab').forEach(b => b.onclick = () => guideTab(b.dataset.gtab));
+  $$('#help-top [data-guide]').forEach(b => b.onclick = () => { b.classList.remove('glow'); openGuide(b.dataset.guide); });
+  $('#b-help').onclick = () => openGuide('dew');
+  // the "try it yourself" sliders use the same Magnus formula as the four programs
+  (() => {
+    const DEW_A = 17.27, DEW_B = 237.7, t = $('#dc-t'), h = $('#dc-h'), F = c => Math.round(c * 9 / 5 + 32);
+    const calc = () => {
+      const T = +t.value, RH = +h.value / 100, g = DEW_A * T / (DEW_B + T) + Math.log(RH), dp = DEW_B * g / (DEW_A - g), dpF = dp * 9 / 5 + 32;
+      $('#dc-tv').textContent = `${T}°C · ${F(T)}°F`;
+      $('#dc-hv').textContent = `${h.value}%`;
+      const feel = dpF <= 55 ? ['#a6f3cf', 'dry and comfortable'] : dpF < 65 ? ['#ffd58e', 'getting sticky'] : ['#ff9a9a', 'muggy and oppressive'];
+      $('#dc-out').innerHTML = `Dew point: <span class="dp">${dp.toFixed(1)}°C</span> <span style="color:var(--ink-3)">(${Math.round(dpF)}°F)</span><br>
+        If this air cools to <b>${dp.toFixed(1)}°C</b>, water starts to appear. It would feel <b style="color:${feel[0]}">${feel[1]}</b>.`;
+    };
+    t.oninput = h.oninput = calc; calc();
+  })();
+
+  // a short welcome before the very first story, shown once per browser
+  const START_SLIDES = [
+    { k: 'Welcome', t: 'New to coding? Perfect.', b: `<p>In this game you’ll learn to <b>read</b> real C++ programs. You won’t have to write any code, and you don’t need any experience.</p><p>Every program you’ll read does one job: it calculates the <b>dew point</b>.</p>` },
+    { k: 'One idea', t: 'What’s a dew point?', b: `<p>The <b>dew point</b> is the temperature the air has to cool down to before the water in it turns into drops: dew, fog, or rain.</p><p>Think of a cold glass on a hot day that gets wet on the outside. The air touching the glass cooled down past its dew point.</p><p class="g-small">You can tap <b>What is dew point?</b> or the <b>?</b> button any time for more.</p>` },
+    { k: 'How it works', t: 'Read, answer, learn.', b: `<ul><li><b>Click</b> or press <b>Enter</b> to move the story along.</li><li>The game walks you through the code first. The lines it’s explaining <b>glow</b>.</li><li>Confused by a line? <b>Click it</b> and the 🔍 Code explorer explains it in plain English.</li><li>Then you answer questions: pick an answer, or pick a line in the code.</li></ul>` },
+    { k: 'Don’t worry', t: 'Mistakes are part of it.', b: `<p>Wrong on the first try? You get a <b>hint</b> and <b>one more try</b>. If that one misses too, the game shows you the answer and explains it.</p><p>A right answer clears the sky ☀︎. A final wrong answer raises the sea a little 〰.</p><p>Take your time, read the blue <b>“Before you answer”</b> boxes, and have fun.</p>` },
+  ];
+  function welcome() {
+    try { if (localStorage.getItem('dewpoint-welcomed')) return Promise.resolve(); } catch (e) {}
+    const ov = $('#ov-start'), card = $('#start-card');
+    let i = 0;
+    return new Promise(res => {
+      const render = () => {
+        const s = START_SLIDES[i], last = i === START_SLIDES.length - 1;
+        card.innerHTML = `
+          <div class="eyebrow">${s.k} <span class="dot"></span><span class="muted">${i + 1} of ${START_SLIDES.length}</span></div>
+          <h2>${s.t}</h2>${s.b}
+          <div class="start-nav">
+            <button class="start-skip" id="st-skip">${last ? '' : 'Skip'}</button>
+            <div class="start-dots">${START_SLIDES.map((_, k) => `<i class="${k === i ? 'on' : ''}"></i>`).join('')}</div>
+            <div style="display:flex;gap:8px">
+              ${i > 0 ? '<button class="btn small ghost" id="st-back">Back</button>' : ''}
+              <button class="btn small primary" id="st-next">${last ? 'Let’s begin →' : 'Next'}</button>
+            </div>
+          </div>`;
+        if (last) $('#st-skip').style.visibility = 'hidden';
+        $('#st-next').onclick = () => { Audio2.tick(); if (last) close(); else { i++; render(); } };
+        $('#st-skip').onclick = close;
+        if (i > 0) $('#st-back').onclick = () => { Audio2.tick(); i--; render(); };
+        $('#st-next').focus();
+      };
+      const close = () => ov.classList.remove('on');
+      // Esc, a backdrop click or the last button all close it; whichever happens, carry on
+      const mo = new MutationObserver(() => {
+        if (ov.classList.contains('on')) return;
+        mo.disconnect();
+        try { localStorage.setItem('dewpoint-welcomed', '1'); } catch (e) {}
+        res();
+      });
+      render(); ov.classList.add('on');
+      mo.observe(ov, { attributes: true, attributeFilter: ['class'] });
+    });
+  }
   $('#b-src').onclick = () => openSource(CHAPTERS[Math.min(G.ch, LASTCH)].file);
   $('#b-snd').onclick = () => { Audio2.start(); const on = Audio2.toggle(); $('#snd-on').style.display = on ? '' : 'none'; $('#snd-off').style.display = on ? 'none' : ''; };
 
@@ -4776,6 +5291,8 @@ window.Scene = Scene;
     if (hp.has('lesson')) { const c = CHAPTERS.find(x => x.id === hp.get('lesson')); Scene.setMood(c.mood, true); return lesson(c); }
     if (hp.has('codex')) { G.results = { p1q1: 'ok', p1q2: 'lost', p1q3: 'ok', p2q1: 'rec' }; return openCodex(); }
     if (hp.has('src')) return openSource(hp.get('src'));
+    if (hp.has('guide')) return openGuide(hp.get('guide') || 'dew');
+    if (hp.has('welcome')) { try { localStorage.removeItem('dewpoint-welcomed'); } catch (e) {} return welcome(); }
     if (hp.has('res')) { G.results = { p1q1: 'ok', p1q2: 'lost' }; return results(hp.get('res')); }
     if (hp.has('end')) { if (hp.get('end') === 'drowned') return drowned(); G.flood = hp.get('end') === 'clear' ? 0.1 : 0.6; return ending(); }
   }
@@ -4813,7 +5330,7 @@ window.Scene = Scene;
   let starting = false;
   async function startMode(m, resume) {
     if (starting) return; starting = true;
-    Audio2.start(); applyMode(m);
+    Audio2.start(); applyMode(m); document.body.classList.remove('at-title');
     if (resume) { G = Object.assign({ ch: 0, q: 0, flood: FLOOD0, chFlood: FLOOD0, results: {}, ended: false }, load()); G.flood = clamp(G.flood, 0, 0.95); }
     else { clearSave(); G = { ch: 0, q: 0, flood: FLOOD0, chFlood: FLOOD0, results: {}, ended: false }; }
     updateHUD();
@@ -4824,6 +5341,7 @@ window.Scene = Scene;
       if (G.ch >= CHAPTERS.length) return ending();
       return runFrom(G.ch, G.q || 0);
     }
+    await welcome();
     Scene.setMood(CHAPTERS[0].mood);
     Scene.setCam(0.3);
     if (Scene.is3D) { await fade(1, 900); Scene.shot('prologue:sky', { instant: true }); Scene.shot('roof', { dur: PROLOGUE.length * 5.4 }); fade(0, 2200); }
